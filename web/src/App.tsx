@@ -1,11 +1,12 @@
 import React from 'react';
 
-import Home from './Pages/Home';
-
 import './App.css';
+import Routes from './routes';
 
 function App() {
-  return <Home />;
+  return <Routes />;
 }
 
 export default App;
+
+// PAUSADO EM 50:20
