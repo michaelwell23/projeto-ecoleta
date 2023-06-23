@@ -8,5 +8,3 @@ function App() {
 }
 
 export default App;
-
-// PAUSADO EM 50:20
