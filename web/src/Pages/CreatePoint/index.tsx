@@ -1,11 +1,50 @@
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FiArrowLeft } from 'react-icons/fi';
 import { Map, TileLayer, Marker } from 'react-leaflet';
 
+import axios from 'axios';
+
+import api from '../../server/api';
+
 import './CreatePoint.css';
 import logo from '../../assets/logo.svg';
 
+interface Item {
+  id: number;
+  name: string;
+  image_url: string;
+}
+
+interface IBGEUFResponse {
+  sigla: string;
+}
+
 const CreatePoint = () => {
+  const [items, setItems] = useState<Item[]>([]);
+  const [ufs, setUfs] = useState<string[]>([]);
+
+  useEffect(() => {
+    api.get('items').then((response) => {
+      setItems(response.data);
+    });
+  }, []);
+
+  useEffect(() => {
+    axios
+      .get<IBGEUFResponse[]>(
+        'https://servicodados.ibge.gov.br/api/v1/localidades/estados'
+      )
+      .then((response) => {
+        const ufInitials = response.data.map((uf) => uf.sigla);
+        setUfs(ufInitials);
+      });
+  }, []);
+
+  useEffect(() => {
+    axios.get('');
+  }, []);
+
   return (
     <div id='page-create-point'>
       <header>
@@ -64,6 +103,11 @@ const CreatePoint = () => {
               <label htmlFor='uf'>Estado (UF)</label>
               <select name='uf' id='uf'>
                 <option value='0'>Seecione uma UF</option>
+                {ufs.map((uf) => (
+                  <option key={uf} value={uf}>
+                    {uf}
+                  </option>
+                ))}
               </select>
             </div>
             <div className='field'>
@@ -82,30 +126,12 @@ const CreatePoint = () => {
           </legend>
 
           <ul className='items-grid'>
-            <li>
-              <img src='' alt='' />
-              <span>Óleo de cozinha</span>
-            </li>
-            <li>
-              <img src='' alt='' />
-              <span>Óleo de cozinha</span>
-            </li>
-            <li>
-              <img src='' alt='' />
-              <span>Óleo de cozinha</span>
-            </li>
-            <li>
-              <img src='' alt='' />
-              <span>Óleo de cozinha</span>
-            </li>
-            <li className='selected'>
-              <img src='' alt='' />
-              <span>Óleo de cozinha</span>
-            </li>
-            <li>
-              <img src='' alt='' />
-              <span>Óleo de cozinha</span>
-            </li>
+            {items.map((item) => (
+              <li key={item.id}>
+                <img src={item.image_url} alt={item.name} />
+                <span>{item.name}</span>
+              </li>
+            ))}
           </ul>
         </fieldset>
 
@@ -116,3 +142,5 @@ const CreatePoint = () => {
 };
 
 export default CreatePoint;
+
+// PAUSADO EM 1:37:00
