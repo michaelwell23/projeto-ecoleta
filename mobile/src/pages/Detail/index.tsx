@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Feather as Icon, FontAwesome } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import {
@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
 
   pointImage: {
     width: '100%',
-    height: 120,
+    height: 320,
     resizeMode: 'cover',
     borderRadius: 10,
     marginTop: 32,
