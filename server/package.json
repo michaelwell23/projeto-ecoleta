@@ -4,7 +4,7 @@
   "description": "Ecoleta - é uma forma de conectar empresas e entidades de coleta de resíduos orgânicos e inorgânicos as pessoas que precisam descartar seus resíduos de maneira ecológica.",
   "main": "index.js",
   "scripts": {
-    "dev": "ts-node-dev src/server.ts node_modules --transpileOnly --ignore-watch",
+    "dev": "ts-node-dev --transpile-only --ignore-watch node_modules src/server.ts",
     "knex:migrate": "knex migrate:latest --knexfile knexfile.ts",
     "knex:seed": "knex seed:run --knexfile knexfile.ts",
     "knex:rollback": "knex migrate:rollback"
@@ -20,7 +20,7 @@
     "mongoose": "^5.9.16",
     "multer": "^1.4.2",
     "socket.io": "^2.3.0",
-    "sqlite3": "^4.2.0"
+    "sqlite3": "^5.1.6"
   },
   "devDependencies": {
     "@types/cors": "^2.8.6",
